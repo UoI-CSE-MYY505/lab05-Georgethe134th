@@ -65,39 +65,46 @@ next:
 taken:
 
 # ----------------------------------------------------------------------------------------
-# TODO: Add an example where an instruction passes its result to the 2nd following instruction
+# An instruction passes its result to the 2nd following instruction
 # There should be no stalls
 # ----------------------------------------------------------------------------------------
+    addi t1, t1, 6
+    add  zero, zero, zero
+    add  t2, t2, t1
     # nop instructions added between examples
     add  zero, zero, zero  
     add  zero, zero, zero  
     add  zero, zero, zero  
 
 # ----------------------------------------------------------------------------------------
-# TODO: Add an example with a double hazard and check that it works corretly.
+# Double Hazard!!! Check that it works corretly.
 # A double hazzard is when the source register of an instruction matches the destination
 #  registers of both of the two instructions preceeding it. It should get the newest value.
 # There should be no stalls
 # ----------------------------------------------------------------------------------------
+    addi t2, t2, 1
+    addi t2, t2, 1
+    addi t2, t2, 1
     # nop instructions added between examples
     add  zero, zero, zero  
     add  zero, zero, zero  
     add  zero, zero, zero  
 
 # ----------------------------------------------------------------------------------------
-# TODO: Add an example with a load stalling for 1 cycle to pass a value to a NOT-TAKEN branch 
-#  Is this a data hazard or a control hazard?
+# A load stalling for 1 cycle to pass a value to a NOT-TAKEN branch 
+#  Is this a data hazard or a control hazard? (Data hazard, obviously.)
 # ----------------------------------------------------------------------------------------
+    lw t1, 4(a0)
+    beq t1, t2, exit
     # nop instructions added between examples
     add  zero, zero, zero  
     add  zero, zero, zero  
     add  zero, zero, zero  
 
 # ----------------------------------------------------------------------------------------
-# TODO: Add an example with taken branch to a label which is immediately following the branch
+# A taken branch to a label which is immediately following the branch
 # ----------------------------------------------------------------------------------------
-
-
+    beq zero, zero, exit
 
 exit:  
     addi      a7, zero, 10    
